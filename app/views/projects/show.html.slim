@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Book:
+  = @project.book_id
+p
+  strong Goal:
+  = @project.goal
+
+= link_to 'Edit', edit_project_path(@project)
+'|
+= link_to 'Back', projects_path

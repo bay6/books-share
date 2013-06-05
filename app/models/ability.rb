@@ -17,7 +17,7 @@ class Ability
 
   def member_rules
     can :read, :all
-    can :create, [Book, Resource]
+    can :create, [Book, Resource, Project]
     can :manage, Attachment
     can [:update, :destroy], Book do |book|
       book.user_id == @user.id

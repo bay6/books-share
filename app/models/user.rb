@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   # constant
   ROLES = %w[admin member]
 
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :login
   attr_accessor :login
@@ -38,6 +39,7 @@ class User < ActiveRecord::Base
   # assocation
   has_many :books
   has_many :resources
+  has_many :projects
 
   ##############
   # validation #
@@ -73,6 +75,10 @@ class User < ActiveRecord::Base
 
   def any_roles?(*a)
     !(roles & a.map{|i| i.to_s}).empty?
+  end
+
+  def liked_books
+    all_liked(Book)
   end
 
   private
