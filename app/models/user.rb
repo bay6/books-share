@@ -20,7 +20,8 @@
 #
 
 class User < ActiveRecord::Base
-  include Likeable::UserMethods
+  extend FriendlyId
+  friendly_id :name
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -33,13 +34,20 @@ class User < ActiveRecord::Base
 
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :login
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :login, :avatar, :avatar_cache
   attr_accessor :login
+  
+  # load carrierwave 
+  mount_uploader :avatar, ImageUploader
 
   # assocation
   has_many :books
   has_many :resources
+<<<<<<< HEAD
   has_many :projects
+=======
+  acts_as_follower
+>>>>>>> books-share/master
 
   ##############
   # validation #

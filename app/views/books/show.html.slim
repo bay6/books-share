@@ -1,5 +1,5 @@
 - model_class = Book
-.row-fluid.book
+.row-fluid.book ng-init="book.id=#{@book.id}" 
   .span3
     .book-sidebar
       .book-cover
@@ -10,23 +10,24 @@
         -if can? :update, @book
           li
             i.icon-edit
+            |&nbsp;
             = link_to t('helpers.links.edit'), edit_book_path(@book)
         -if can? :destroy, @book
           li
             i.icon-remove
+            |&nbsp;
             = link_to t('helpers.links.destroy'), @book, method: :delete, data: { confirm: t('helpers.links.confirm') }
-        - if current_user
-          - if current_user.likes? @book
-            li
-              i.icon-star-empty
-              = unlike_link_for @book
-          - else
-            li
-              i.icon-star
-              = like_link_for @book
+        li ng-controller='FollowsCtrl' ng-init='init(#{book_follow_info(@book)})'
+          a ng-href='{{href}}' ng-click='follow()' ng-class='{disabled: disabled}'
+            i ng-class="{true: 'icon-star', false: 'icon-star-empty'}[followed]"
+            |&nbsp;{{labels[followed]}}
+          a.social-count {{count}}
   .span9
     header
       h1 = @book.name
+      p.text-right
+        =link_to @book.try(:user).try(:name), @book.user
+        = "于#{time_ago_in_words @book.created_at}前发布"
 
     .book-detail
       table.table.table-striped.table-bordered

@@ -7,18 +7,18 @@ BooksShare::Application.routes.draw do
       post 'auto_create' => 'books#auto_create'
       get 'auto_new'
     end
+    member do
+      post 'follow'
+      post 'unfollow'
+    end
   end
 
-  get "home/index"
-  get "home/tag_cloud", as: :tag_cloud
+  get 'home/index'
+  get 'home/tag_cloud', as: :tag_cloud
 
   get 'tags/:tag', to: 'books#index', as: :tag
   get 'authors/:author', to: 'books#index', as: :author
   get 'translators/:translator', to: 'books#index', as: :translator
-
-  match "/search" => "search#index", :as => :search
-  delete 'likes/:resource_name/:resource_id' => "likes#destroy", :as => 'like'
-  post 'likes/:resource_name/:resource_id' => "likes#create",  :as => 'like'
 
   devise_for :users
 
@@ -30,6 +30,8 @@ BooksShare::Application.routes.draw do
     root :to => 'books#index'
     get 'account' => 'registrations#edit', :as => 'account'
   end
+
+  resources :users, :path => '', :only => [:show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

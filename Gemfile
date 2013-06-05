@@ -11,8 +11,8 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'devise'
 gem 'cancan'
-gem 'likeable'
-gem 'redis'
+gem 'acts_as_follower'
+gem 'angularjs-rails'
 # attachment
 gem 'carrierwave'
 gem 'mini_magick'
@@ -23,6 +23,8 @@ gem 'acts-as-taggable-on'
 gem 'thinking-sphinx'
 # douban book api
 gem "mini-douban", "~> 0.0.5"
+# create pretty URL
+gem 'friendly_id'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -35,11 +37,12 @@ group :assets do
 end
 
 group :development do
+  gem 'awesome_print'
   gem 'thin'
+  gem 'pry'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
-  gem 'pry-nav'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'

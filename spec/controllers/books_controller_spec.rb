@@ -198,6 +198,7 @@ describe BooksController do
       end
     end
   end
+
   describe 'GET#auto_new' do
     context 'when user has not signed in' do
       it "should be redirect" do
@@ -231,10 +232,42 @@ describe BooksController do
         }.should change(Book, :count).by(0)
       end
 
+      it "re-renders the auto_new method" do
+        post :auto_create, douban: {:index=>0}
+        response.should render_template :auto_new
+      end
+
       it "when input right number" do
         lambda{
           post :auto_create, douban: {:index=>'23860404'}
         }.should change(Book, :count).by(1)
+      end
+    end
+  end
+
+  describe 'Post#follow' do
+    before(:each) do
+      sign_in user
+      controller.stub(:current_user).and_return(user)
+    end
+
+    # have some problem here
+    context "post#follow" do
+      it "should add followers_count" do
+        expect do
+          #post :follow, id: book.id
+          user.follow book
+        end.to change { book.reload.followers_count }.by(1)
+      end
+    end
+
+    context "post#unfollow" do
+      it "should reduce followers_count" do
+        user.follow book
+        expect do
+          #post :unfollow, id: book.id
+          user.stop_following book
+        end.to change { book.followers_count }.by(-1)
       end
     end
   end
