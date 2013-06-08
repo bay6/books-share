@@ -246,27 +246,33 @@ describe BooksController do
   end
 
   describe 'Post#follow' do
-    before(:each) do
-      sign_in user
-      controller.stub(:current_user).and_return(user)
-    end
-
-    # have some problem here
-    context "post#follow" do
-      it "should add followers_count" do
+    context 'when user has not signed in' do
+      it "should not add followers_count" do
         expect do
-          #post :follow, id: book.id
-          user.follow book
-        end.to change { book.reload.followers_count }.by(1)
+          post :follow, id: book.id
+        end.to_not change { book.followers_count }.by(1)
+      end
+
+      it "should not reduce followers_count" do
+        user.follow book
+        expect do
+          post :unfollow, id: book.id
+        end.to_not change { book.followers_count }.by(-1)
       end
     end
 
-    context "post#unfollow" do
+    context 'when user has signed in' do
+      before(:each){ sign_in user }
+      it "should add followers_count" do
+        expect do
+          post :follow, id: book.id
+        end.to change { book.followers_count }.by(1)
+      end
+
       it "should reduce followers_count" do
         user.follow book
         expect do
-          #post :unfollow, id: book.id
-          user.stop_following book
+          post :unfollow, id: book.id
         end.to change { book.followers_count }.by(-1)
       end
     end
