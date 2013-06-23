@@ -1,0 +1,20 @@
+.modal.hide.fade aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"  id="modal" style="display: none;"
+  .modal-header
+    button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+      | ×
+    h3 id="myModalLabel"
+      = t 'projcts.new.lable'
+  .modal-body
+    - @project = Project.new
+    .well
+      fieldset
+        = simple_form_for @project, :validate => true do |f|
+          .form-inputs
+            = f.select :book_id, options_for_select(current_user.following_by_type('Book').map{|book| [book[:name], book[:id]]})
+            = f.input :goal
+
+          .form-actions
+            = f.button :submit, :class => ['btn', 'btn-info']
+            '
+            = link_to t("helpers.links.cancel"), root_path, :class => 'btn'
+

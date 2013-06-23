@@ -17,7 +17,7 @@ class Ability
 
   def member_rules
     can :read, :all
-    can :create, [Book, Resource]
+    can :create, [Book, Resource, Project]
     can [:auto_create, :auto_new, :follow, :unfollow], Book
     can :manage, Attachment
     can [:update, :destroy], Book do |book|

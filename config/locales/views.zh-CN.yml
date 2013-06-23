@@ -20,6 +20,10 @@ zh-CN:
           success: '自动创建书籍成功'
           error: '该书已经被创建，不能再次创建。'
           douban_error: '没有对应的豆瓣书籍。'
+    projects:
+      actions:
+        new:
+          error: '没有可读的收藏书籍,请到图库中去选取吧.'
 
   helpers:
     actions: "操作"
@@ -68,3 +72,15 @@ zh-CN:
       create_now: "立即创建"
       create_with_douban: "根据豆瓣图书Id自动创建图书"
       douban_book_index: "图书ID"
+  projcts:
+    table:
+      th:
+        book: '所读书籍'
+        start_time: '开始时间'
+        expect_finish_time: '计划完成时间'
+        fact_finish_time: '实际完成时间'
+        action: '操作'
+
+
+
+

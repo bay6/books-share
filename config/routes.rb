@@ -4,6 +4,8 @@ BooksShare::Application.routes.draw do
     get 'read', :on => :member
   end
 
+  resources :projects, :except=>:index
+  resources :resources
   resources :books do
     collection do
       post 'auto_create' => 'books#auto_create'

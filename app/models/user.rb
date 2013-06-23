@@ -32,16 +32,19 @@ class User < ActiveRecord::Base
   # constant
   ROLES = %w[admin member]
 
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :login, :avatar, :avatar_cache
   attr_accessor :login
-  
-  # load carrierwave 
+
+  # load carrierwave
   mount_uploader :avatar, ImageUploader
 
   # assocation
   has_many :books
   has_many :resources
+  has_many :projects
+
   acts_as_follower
 
   ##############
