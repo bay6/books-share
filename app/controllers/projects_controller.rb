@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
+
   load_and_authorize_resource
-   layout 'application', :except => :new
 
   def show
     @project = Project.find(params[:id])
@@ -11,39 +11,13 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.json
-  def new
-    if current_user.liked_books.blank?
-      flash[:error] = I18n.t('flash.projects.actions.new.error')
-      return redirect_to root_path
-    end
-    @project = Project.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @project }
-    end
-  end
-
-  # GET /projects/1/edit
-  def edit
-    @project = Project.find(params[:id])
-  end
 
   # POST /projects
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
     @project.host = current_user
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, success: 'Project was successfully created.' }
-        format.json { render json: @project, status: :created, location: @project }
-      else
-        format.html { render action: "new",  alert: @project.errors }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to root_path, success: 'Project was successfully created.'
   end
 
   # PUT /projects/1

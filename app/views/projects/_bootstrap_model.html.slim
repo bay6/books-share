@@ -10,7 +10,7 @@
       fieldset
         = simple_form_for @project, :validate => true do |f|
           .form-inputs
-            = f.select :book_id, options_for_select(current_user.liked_books.map{|book| [book[:name], book[:id]]})
+            = f.select :book_id, options_for_select(current_user.following_by_type('Book').map{|book| [book[:name], book[:id]]})
             = f.input :goal
 
           .form-actions

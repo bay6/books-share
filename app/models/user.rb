@@ -36,18 +36,16 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :login, :avatar, :avatar_cache
   attr_accessor :login
-  
-  # load carrierwave 
+
+  # load carrierwave
   mount_uploader :avatar, ImageUploader
 
   # assocation
   has_many :books
   has_many :resources
-<<<<<<< HEAD
   has_many :projects
-=======
+
   acts_as_follower
->>>>>>> books-share/master
 
   ##############
   # validation #
@@ -83,10 +81,6 @@ class User < ActiveRecord::Base
 
   def any_roles?(*a)
     !(roles & a.map{|i| i.to_s}).empty?
-  end
-
-  def liked_books
-    all_liked(Book)
   end
 
   private

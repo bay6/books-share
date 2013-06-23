@@ -73,5 +73,14 @@ zh-CN:
       create_with_douban: "根据豆瓣图书Id自动创建图书"
       douban_book_index: "图书ID"
   projcts:
-    new:
-      lable: "创建读书计划"
+    table:
+      th:
+        book: '所读书籍'
+        start_time: '开始时间'
+        expect_finish_time: '计划完成时间'
+        fact_finish_time: '实际完成时间'
+        action: '操作'
+
+
+
+

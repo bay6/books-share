@@ -3,13 +3,35 @@
     .page-header
       h2= t('.title')
       .well
-        h4 看书计划
-        p ......
+        h4 看书计划(#{@projects.count})
+        - if @projects.empty?
+          p ......
+        - else
+          table.table.table-striped.projects
+            tr
+              th =t('projcts.table.th.book')
+              th =t('projcts.table.th.start_time')
+              th =t('projcts.table.th.expect_finish_time')
+              th =t('projcts.table.th.fact_finish_time')
+              th =t('projcts.table.th.action')
+            - @projects.each do |project|
+              tr
+                td = link_to project.read_book.name, book_path(project.read_book)
+                td 2013-1-17
+                td 2013-1-17
+                td 2013-1-17
+                td
+                  ul.inline
+                    = link_to t('.read'), book_path(project.read_book), :class => 'btn btn-primary action-btn-left'
+                    = link_to t('.commit'), book_path(project.read_book), :class => 'btn btn-primary action-btn-left'
+                    = link_to t('.delete'), book_path(project.read_book), :class => 'btn btn-primary action-btn-left'
+
+
       .well
         h4 发布书籍(#{current_user.books.count})
         ul.thumbnails
           - if current_user.present?
-            - current_user.liked_books.each do |book|
+            - current_user.books.each do |book|
               li.book-each.span2
                 .thumbnail
                   a{href="#{book_path(book)}"}
@@ -29,14 +51,14 @@
                     = strip_tags(book.name).truncate(15, omission: '...')
   .span3
     = link_to t('.add_book'), auto_new_books_path,
-              :class => 'btn btn-primary' if can? :create, Book
-    a.btn.btn-success  data-target="#modal" data-toggle="modal" title=t('.add_plan') =t('.add_plan')
+              :class => 'btn btn-primary action-btn-left' if can? :create, Book
+    a.btn.btn-success.new_project  data-target="#modal" data-toggle="modal" title=t('.add_plan') =t('.add_plan')
     hr
     .well
       .avatar_box= image_tag(current_user.avatar_url)
       hr
       p 个人信息
-= render 'projects/bootstrap_model'
-      ul.user-info.unstyled.muted
+    ul.user-info.unstyled.muted
         li = "姓名: #{current_user.name}"
         li = "邮箱: #{current_user.email}"
+= render 'projects/bootstrap_model'
