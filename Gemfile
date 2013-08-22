@@ -1,8 +1,8 @@
 # source 'https://rubygems.org'
 source 'http://ruby.taobao.org/'
 
-gem 'rails', '3.2.12'
-gem 'mysql2', '0.3.11'
+gem 'rails', '3.2.13'
+gem 'mysql2', '0.3.13'
 gem 'slim-rails'
 gem 'kaminari'
 gem 'nokogiri'
